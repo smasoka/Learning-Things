@@ -1,4 +1,7 @@
+#!/anaconda3/bin/python
+
 from sys import argv
+import sys
 import argparse 
 
 # Using sys library with argv
@@ -12,7 +15,9 @@ print("root" in argv)
 print("-m" in argv)
 print(argv[0])
 
+sys.exit(0)
 
+print("After")
 print("\n")    
 # Mandatory Arguments
 # Dictionary key-value pair
