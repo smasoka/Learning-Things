@@ -21,7 +21,7 @@ plt.style.use('fivethirtyeight')
 
 # ----- PANDAS WAY --------- #
 
-data = pd.read_csv('data.csv')
+data = pd.read_csv('languages.csv')
 ids = data['Responder_id']
 lang_responses = data['LanguagesWorkedWith']
 
