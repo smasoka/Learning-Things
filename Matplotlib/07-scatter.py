@@ -32,7 +32,7 @@ plt.yscale('log')
 plt.title('Trending YouTube Videos')
 plt.xlabel('View Count')
 plt.ylabel('Total Likes')
-
+plt.savefig('plot1.png')
 plt.tight_layout()
 
 plt.show()
