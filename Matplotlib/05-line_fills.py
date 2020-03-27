@@ -24,7 +24,7 @@ plt.plot(ages, py_salaries, label='Python')
 # or 
 plt.fill_between(ages, py_salaries, dev_salaries, 
                  where=(py_salaries > dev_salaries), 
-                 interpolate=True, alpha=0.25, label='Above Avg')
+                 interpolate=True, alpha=0.05, label='Above Avg')
 
 plt.fill_between(ages, py_salaries, dev_salaries, 
                  where=(py_salaries <= dev_salaries), 
