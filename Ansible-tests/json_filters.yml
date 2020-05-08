@@ -1,0 +1,58 @@
+---
+- hosts: localhost
+
+  vars:
+    my_rooms:
+      name: "room1"
+
+  tasks:
+  - name: "Cat json file"
+    shell: cat test_file.json
+    register: result
+
+  - debug:
+      var: result.stdout
+
+# Retrive variables inside
+  - name: "Get variables"
+    set_fact:
+      cluster: "{{ (result.stdout | from_json).domain_definition.domain.cluster }}"
+
+  - debug:
+      var: cluster
+
+# Set as fact variable
+  - set_fact:
+      myvar: "{{ result.stdout | from_json }}"
+
+  - debug:
+      var: myvar
+
+# my own variable
+  - debug:
+      var: my_rooms
+
+# combine
+  - set_fact:
+      new_var: "{{ result.stdout | from_json | combine(my_rooms) | to_nice_json }}\n"
+
+  - debug:
+      var: new_var
+
+  - name: Get cluster names as list.
+    set_fact:
+      name_value: "{{ (result.stdout | from_json).domain_definition.domain.cluster | map(attribute='name') | list }}"
+
+  - debug:
+      var: name_value
+
+  - name: "Create the json file and content"
+    copy:
+      dest: test_file_output.json
+      content: "{{ result.stdout_lines | to_nice_json }}\n"
+
+
+  # - name: "Display cluster names"
+  #   debug:
+  #     var: item
+  #   loop: "{{ domain_definition | json_query('domain.cluster[*].name') }}"
