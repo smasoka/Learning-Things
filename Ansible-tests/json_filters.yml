@@ -6,50 +6,63 @@
       name: "room1"
 
   tasks:
-  - name: "Cat json file"
-    shell: cat test_file.json
-    register: result
+#   - name: "Cat json file"
+#     shell: cat test_file.json
+#     register: result
+#
+#   - debug:
+#       var: result.stdout
+#
+# # Retrive variables inside
+#   - name: "Get variables"
+#     set_fact:
+#       cluster: "{{ (result.stdout | from_json).domain_definition.domain.cluster }}"
+#
+#   - debug:
+#       var: cluster
+#
+# # Set as fact variable
+#   - set_fact:
+#       myvar: "{{ result.stdout | from_json }}"
+#
+#   - debug:
+#       var: myvar
+#
+# # my own variable
+#   - debug:
+#       var: my_rooms
+#
+# # combine
+#   - set_fact:
+#       new_var: "{{ result.stdout | from_json | combine(my_rooms) | to_nice_json }}\n"
+#
+#   - debug:
+#       var: new_var
+#
+#   - name: Get cluster names as list.
+#     set_fact:
+#       name_value: "{{ (result.stdout | from_json).domain_definition.domain.cluster | map(attribute='name') | list }}"
+#
+#   - debug:
+#       var: name_value
+#
+#   - name: "Create the json file and content"
+#     copy:
+#       dest: test_file_output.json
+#       content: "{{ result.stdout_lines | to_nice_json }}\n"
 
-  - debug:
-      var: result.stdout
+  - name: get contents of daemon.json
+    shell: "cat daemon.json 2> /dev/null || echo '{}'"
+    register: docker_daemon_file
 
-# Retrive variables inside
-  - name: "Get variables"
-    set_fact:
-      cluster: "{{ (result.stdout | from_json).domain_definition.domain.cluster }}"
-
-  - debug:
-      var: cluster
-
-# Set as fact variable
-  - set_fact:
-      myvar: "{{ result.stdout | from_json }}"
-
-  - debug:
-      var: myvar
-
-# my own variable
-  - debug:
-      var: my_rooms
-
-# combine
-  - set_fact:
-      new_var: "{{ result.stdout | from_json | combine(my_rooms) | to_nice_json }}\n"
-
-  - debug:
-      var: new_var
-
-  - name: Get cluster names as list.
-    set_fact:
-      name_value: "{{ (result.stdout | from_json).domain_definition.domain.cluster | map(attribute='name') | list }}"
-
-  - debug:
-      var: name_value
-
-  - name: "Create the json file and content"
+  - name: configure Docker options
+    vars:
+      docker_daemon_config:
+        data-root: "/scratch/docker"
     copy:
-      dest: test_file_output.json
-      content: "{{ result.stdout_lines | to_nice_json }}\n"
+      content: "{{ docker_daemon_file.stdout | from_json | combine(docker_daemon_config) | to_nice_json }}\n"
+      dest: daemon2.json
+
 
 
   # - name: "Display cluster names"

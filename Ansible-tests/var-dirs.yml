@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+
+  tasks: 
+  - name: "Create directories in var"
+    file:
+      path: kat/{{ item }}
+      state: directory
+      mode: '0755'
+    loop:
+      - opt
+      - paws
+      - proposals
