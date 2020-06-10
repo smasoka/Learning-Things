@@ -1,18 +1,23 @@
-- name: Deploy a web application
+-
+  name: Deploy a web application
   hosts: db_web_server1, db_web_server2
+  vars:
+    db_name: employee_db
+    db_user: db_user
+    db_password: vagrant
   tasks:
     - name: Install all required dependencies
-      apt: name={{ item }} state=installed
+      apt: name={{ item }} state=present
       with_items:
         - python
         - python-setuptools
         - python-dev
-        - build-essentials
+        - build-essential
         - python-pip
-        - python-mysql
+        - python-mysqldb
 
     - name: Install and Configue Database
-      apt: name={{ item }} state=installed
+      apt: name={{ item }} state=present
       with_items:
         - mysql-server
         - mysql-client
@@ -24,18 +29,18 @@
         enabled: yes
 
     - name: Create Application Database
-      mysql_db: name=employee_db state=present
+      mysql_db: name={{ db_name }} state=present
 
     - name: Create Database user
       mysql_user:
-        name: db_user
-        password: vagrant
+        name: {{ db_user }}
+        password: {{ db_password }}
         priv: '*.*:ALL'
         state: present
         host: '%'
 
     - name: Install Python Flask dependency
-      pip: name="{{ item }}" state present
+      pip: name="{{ item }}" state=present
       with_items:
         - flask
         - flask-mysql
