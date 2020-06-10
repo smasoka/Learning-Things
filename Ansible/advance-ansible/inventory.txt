@@ -1,2 +1,2 @@
-target1 ansible_host=vagrant@192.168.8.120
-target2 ansible_host=vagrant@192.168.8.121
+db_web_server1 ansible_host=vagrant@192.168.8.120
+db_web_server2 ansible_host=vagrant@192.168.8.121
