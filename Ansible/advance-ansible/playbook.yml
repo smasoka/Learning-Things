@@ -1,6 +1,6 @@
 -
   name: Deploy a web application
-  hosts: db_web_server1, db_web_server2
+  hosts: db_and_web_servers
   roles:
     - python
     - mysql_db
