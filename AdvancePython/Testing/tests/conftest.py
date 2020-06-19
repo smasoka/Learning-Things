@@ -1,3 +1,7 @@
+import os
+import shutil
+import tempfile
+
 import pytest
 import smtplib
 
@@ -82,3 +86,14 @@ def smtp_connection(request):
 #
 # ====================================================================================== no tests ran in 0.01s ======================================================================================
 # (base) smasoka@MasonicXPS:~/Learning-Things/AdvancePython/Testing/tests$
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@pytest.fixture(scope="function")
+def cleandir():
+    old_cwd = os.getcwd()
+    newpath = tempfile.mkdtemp()
+    os.chdir(newpath)
+    yield               # yields in a new directory
+    os.chdir(old_cwd)
+    shutil.rmtree(newpath)
