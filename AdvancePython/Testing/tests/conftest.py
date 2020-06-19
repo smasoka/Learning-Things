@@ -8,7 +8,7 @@ import smtplib
 # then test modules, then conftest.py files and finally builtin
 # and third party plugins.
 
-scope = [function, class, module, package, session]
+# scope = [function, class, module, package, session]
 @pytest.fixture(scope='function')
 def smtp_connection():
     return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
