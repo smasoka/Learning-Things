@@ -2,7 +2,7 @@ from unittest import mock, TestCase
 
 from project import something
 
-# Inline
+# Manual start/stop
 class TestExamples(TestCase):
     def setUp(self):
         self.patcher = mock.patch('project.something.check_output', return_value=b'foo\nbar\n')
