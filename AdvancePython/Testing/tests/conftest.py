@@ -55,3 +55,30 @@ def smtp_connection(request):
     yield smtp_connection
     print("finalizing {} ({})".format(smtp_connection, server))
     smtp_connection.close()
+
+
+# Parametrizing fixtures
+@pytest.fixture(scope="module", params=["smtp.gmail.com", "mail.python.org"])
+def smtp_connection(request):
+    smtp_connection = smtplib.SMTP(request.param, 587, timeout=5)
+    yield smtp_connection
+    print("finalizing {}".format(smtp_connection))
+    smtp_connection.close()
+
+# (base) smasoka@MasonicXPS:~/Learning-Things/AdvancePython/Testing/tests$ pytest --collect-only test_smtp.py
+# ======================================================================================= test session starts =======================================================================================
+# platform linux -- Python 3.7.6, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
+# rootdir: /home/smasoka/Learning-Things/AdvancePython/Testing/tests
+# plugins: astropy-header-0.1.2, openfiles-0.4.0, hypothesis-5.5.4, arraydiff-0.3, doctestplus-0.5.0, remotedata-0.3.2
+# collected 6 items
+# <Package /home/smasoka/Learning-Things/AdvancePython/Testing/tests>
+#   <Module test_smtp.py>
+#     <Function test_ehlo[smtp.gmail.com]>
+#     <Function test_noop[smtp.gmail.com]>
+#     <Function test_showhelo[smtp.gmail.com]>
+#     <Function test_ehlo[mail.python.org]>
+#     <Function test_noop[mail.python.org]>
+#     <Function test_showhelo[mail.python.org]>
+#
+# ====================================================================================== no tests ran in 0.01s ======================================================================================
+# (base) smasoka@MasonicXPS:~/Learning-Things/AdvancePython/Testing/tests$

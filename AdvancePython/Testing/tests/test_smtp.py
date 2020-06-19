@@ -1,8 +1,8 @@
 def test_ehlo(smtp_connection):
     response, msg = smtp_connection.ehlo()
     assert response == 250
-    # assert b"smtp.gmail.com" in msg
-    assert b"mail.python.org" in msg
+    assert b"smtp.gmail.com" in msg
+    # assert b"mail.python.org" in msg
     # assert 0
 
 
