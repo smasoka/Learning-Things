@@ -22,3 +22,11 @@ def smtp_connection():
     yield smtp_connection # release the fixture value
     print("teardown smtp")
     smtp_connection.close()
+
+
+# yield syntax with `with`
+# the connection will be autoclosed
+@pytest.fixture(scope="module")
+def smtp_connection():
+    with smtplib.SMTP("smtp.gmail.com", 587, timeout=5) as smtp_connection:
+        yield smtp_connection
