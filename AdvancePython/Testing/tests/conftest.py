@@ -8,7 +8,7 @@ import smtplib
 # then test modules, then conftest.py files and finally builtin
 # and third party plugins.
 
-# scope = [function, class, module, package, session]
+scope = [function, class, module, package, session]
 @pytest.fixture(scope='function')
 def smtp_connection():
     return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
@@ -44,3 +44,14 @@ def smtp_connection(request):
 
     request.addfinalizer(fin)
     return smtp_connection
+
+
+# instropect the 'requesting' function/class/module
+# use the 'request.module' attribute to obtain 'smtpserver' attribute
+@pytest.fixture(scope="function")
+def smtp_connection(request):
+    server = getattr(request.module, "smtpserver", "smtp.gmail.com")
+    smtp_connection = smtplib.SMTP(server, 587, timeout=5)
+    yield smtp_connection
+    print("finalizing {} ({})".format(smtp_connection, server))
+    smtp_connection.close()
