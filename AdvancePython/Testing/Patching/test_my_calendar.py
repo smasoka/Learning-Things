@@ -6,7 +6,7 @@ from my_calendar import requests, get_holidays
 
 # patch as a decorator
 class TestCalendar(unittest.TestCase):
-    @patch('my_calendar.requests')
+    @patch('my_calendar.requests', autospec=True)
     def test_get_holidays_timeout(self, mock_requests):
         mock_requests.get.side_effect = Timeout
         with self.assertRaises(Timeout):
@@ -17,7 +17,7 @@ class TestCalendar(unittest.TestCase):
 # patch as a context manager
 class TestCalendar(unittest.TestCase):
     def test_get_holidays_timeout(self):
-        with patch('my_calendar.requests') as mock_requests:
+        with patch('my_calendar.requests', autospec=True) as mock_requests:
             mock_requests.get.side_effect = Timeout
             with self.assertRaises(Timeout):
                 get_holidays()
@@ -26,7 +26,7 @@ class TestCalendar(unittest.TestCase):
 
 # patch an object's attrubutes instead of the whole object
 class TestCalendar(unittest.TestCase):
-    @patch.object(requests, 'get', side_effect=Timeout)
+    @patch.object(requests, 'get', side_effect=Timeout, autospec=True)
     def test_get_holidays_timeout(self, mock_requests):
         with self.assertRaises(Timeout):
             get_holidays()
