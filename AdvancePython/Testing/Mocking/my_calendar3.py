@@ -25,7 +25,8 @@ class TestCalendar(unittest.TestCase):
         return response_mock
 
     def test_get_holidays_logging(self):
-        # mock the function that calls 'requests.get' logged request
+        # mock the function that calls 'requests.get', forwards
+        # arguments for ".get" to "log_request" function
         requests.get.side_effect = self.log_request
         assert get_holidays()['12/25'] == 'Christmas'
 

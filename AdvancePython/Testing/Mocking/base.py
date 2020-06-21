@@ -51,3 +51,15 @@ print(json.loads.call_count)
 print(json.loads.call_args)
 print(json.loads.call_args_list)
 print(json.method_calls)
+
+# Configure Your Mock
+mock = Mock(name="Sakhile Masoka Mock")
+print(mock)
+print(mock.name)
+
+mock = Mock(return_value=True)
+print(mock())
+print(mock.return_value)
+
+mock = Mock(side_effect=Exception)
+mock() # raises and exception
