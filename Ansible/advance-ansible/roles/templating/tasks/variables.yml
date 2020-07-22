@@ -1,0 +1,25 @@
+---
+  - debug: 
+      msg: "My name is {{ my_name }}"
+
+  - debug:
+      msg: "My name is {{ my_name | upper }}"
+
+  - debug:
+      msg: "My name is {{ my_name | lower }}"
+
+  - debug:
+      msg: "My name is {{ my_name | title }}"
+
+  - debug:
+      msg: "My name is {{ my_name | replace('Sakhile', 'Harvey') }}"
+
+  - debug:
+      msg: "My name is {{ first_name | default('James') }} {{ my_name }}"
+  
+  - debug:
+      msg: 'The name is {{ last_name }}! {{ first_name }} {{ last_name }}!'
+
+  - debug:
+      msg: 'The name is {{ last_name | title }}! {{ first_name | title }} {{ last_name | title }}!'
+  

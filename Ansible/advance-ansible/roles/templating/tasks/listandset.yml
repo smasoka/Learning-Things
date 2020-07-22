@@ -1,0 +1,27 @@
+---
+  - debug: 
+      msg:  "{{ [1,2,3] | min }}"
+
+  - debug: 
+      msg:  "{{ [1,2,3] | max }}"
+
+  - debug:
+      msg:  "{{ [1,2,3,2] | unique }}"
+
+  - debug: 
+      msg:  "{{ [1,2,3, 4] | union([4,5]) }}"
+
+  - debug: 
+      msg:  "{{ [1,2,3, 4] | intersect([4,5]) }}"
+
+  - debug: 
+      msg:  "{{ 100 | random }}"
+
+  - debug: 
+      msg:  "{{ ['Sakhile', 'Harvey', 'Masoka'] | join(' ') }}"
+
+  - debug:
+      msg: 'Lowest = {{ array_of_numbers | min }}'
+
+  - debug:
+      msg: 'Installing {{ web_dependencies | union(sql_dependencies) }}'

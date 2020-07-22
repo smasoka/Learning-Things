@@ -1,0 +1,22 @@
+---
+# vars file for roles/templating
+my_name: Sakhile Masoka
+first_name: james
+last_name: bond
+array_of_numbers:
+  - 12
+  - 34
+  - 06
+  - 34
+web_dependencies:
+  - python
+  - python-setuptools
+  - python-dev
+  - build-essential
+  - python-pip
+  - python-mysqldb
+sql_dependencies:
+  - python
+  - python-mysqldb
+ip_address: 192.168.1.6
+file_path: /etc/hosts

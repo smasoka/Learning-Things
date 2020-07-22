@@ -1,0 +1,5 @@
+---
+# tasks file for roles/templating
+- include: variables.yml
+- include: listandset.yml
+- include: files.yml

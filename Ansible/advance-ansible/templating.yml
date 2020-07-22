@@ -1,0 +1,5 @@
+-
+  name: Playing with Templates
+  hosts: localhost
+  roles:
+    - templating

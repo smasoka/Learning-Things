@@ -1,0 +1,13 @@
+---
+- name: "Generate random file name"
+  file:
+    path: /tmp/random_file_{{ 1000 | random }}
+    state: touch
+
+- name: Get filename
+  debug:
+    msg: File Name = {{ file_path | basename }}
+
+- name: Test valid IP address
+  debug:
+    msg: IP Address = {{ ip_address | ipaddr }}
